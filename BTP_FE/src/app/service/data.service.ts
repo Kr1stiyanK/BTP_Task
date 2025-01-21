@@ -18,6 +18,11 @@ export class DataService {
   validateToken(validateTokenRequest: TokenRequest): Observable<boolean> {
     return this.http.post<boolean>(BASE_URL + 'validate-token', validateTokenRequest);
   }
+
+  saveRepository(saveRepositoryURLAndToken: TokenRequest): Observable<string> {
+    return this.http.post<string>(BASE_URL + 'save', saveRepositoryURLAndToken, {responseType: 'text' as 'json'});
+  }
+
 }
 
 

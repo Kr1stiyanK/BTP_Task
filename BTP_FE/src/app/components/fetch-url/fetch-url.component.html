@@ -14,7 +14,18 @@
     <button type="submit" class="btn btn-primary" (click)="validateAccessToken()"
             [disabled]="urlForm.invalid || isValidating">Validate Access Token
     </button>
-    <button type="submit" class="btn btn-primary" [disabled]="!isTokenValid">Save URL</button>
+    <button type="submit" class="btn btn-primary" (click)="saveRepository()" [disabled]="!isTokenValid">Save URL
+    </button>
 
   </form>
+
+  <div *ngIf="message" class="alert" [ngClass]="{ 'alert-success': isSuccess, 'alert-danger': !isSuccess }">
+    {{ message }}
+  </div>
+
+  <div class="button-group">
+    <button class="btn btn-secondary" [routerLink]="['/']">Home</button>
+    <button class="btn btn-secondary" [routerLink]="['/get-repositories']">View saved repositories</button>
+    <button class="btn btn-secondary" [routerLink]="['/get-access-tokens']">View saved access tokens</button>
+  </div>
 </div>

@@ -44,11 +44,21 @@ button {
   margin-right: 10px;
 }
 
-button:last-child {
-  margin-right: 0;
-}
-
 button[disabled] {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+
+
+.button-group {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.button-group .btn {
+  width: 200px;
+  text-align: center;
 }
