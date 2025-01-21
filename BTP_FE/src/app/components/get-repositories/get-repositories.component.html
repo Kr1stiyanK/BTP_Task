@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>Saved Repositories</h2>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Repository URL</th>
+      <th>Platform</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let repository of repositories; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ repository.url }}</td>
+      <td>{{ repository.tokenPlatform }}</td>
+      <td>
+        <button class="btn btn-danger" (click)="deleteRepository(repository.id)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="button-group">
+  <button class="btn btn-secondary" [routerLink]="['/']">Home</button>
+  <button class="btn btn-secondary" [routerLink]="['/fetch']">Fetch URL</button>
+  <button class="btn btn-secondary" [routerLink]="['/get-access-tokens']">View saved access tokens</button>
+</div>
