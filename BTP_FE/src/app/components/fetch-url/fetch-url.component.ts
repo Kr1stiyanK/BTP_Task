@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {DataService} from '../../service/data.service';
 import {TokenRequest} from '../../TokenRequest';
 import {RouterLink} from '@angular/router';
+import {ValidationTokenRequest} from '../../ValidationTokenRequest';
 
 @Component({
   selector: 'app-fetch-url',
@@ -14,6 +15,7 @@ import {RouterLink} from '@angular/router';
 })
 export class FetchURLComponent implements OnInit {
   urlForm: FormGroup;
+  isPrivateRepo: boolean = false;
   isTokenValid: boolean = false;
   isValidating: boolean = false;
   message: string | null = null;
@@ -23,18 +25,39 @@ export class FetchURLComponent implements OnInit {
   constructor(private fb: FormBuilder, private ds: DataService) {
     this.urlForm = this.fb.group({
       url: ['', [Validators.required]],
-      accessToken: ['', [Validators.required]]
+      accessToken: ['', [Validators.required]],
+      visibility: ['PUBLIC', [Validators.required]]
     })
   }
 
   ngOnInit(): void {
+    this.onVisibilityChange();
+  }
+
+  onVisibilityChange() {
+    this.isPrivateRepo = this.urlForm.get('visibility')?.value === 'PRIVATE';
+
+    if (!this.isPrivateRepo) {
+      this.urlForm.get('accessToken')?.setValue('');
+      this.isTokenValid = false;
+    }
+  }
+
+  isSaveDisabled(): boolean {
+    const urlValid = this.urlForm.get('url')!.valid;
+    const accessTokenValid = this.isPrivateRepo ? this.isTokenValid : true;
+
+    return !urlValid || !accessTokenValid;
   }
 
   validateAccessToken() {
     this.isValidating = true;
 
-    const tokenRequest: TokenRequest = this.urlForm.value;
-    this.ds.validateToken(tokenRequest).subscribe({
+    const validateTokenRequest: ValidationTokenRequest = {
+      url: this.urlForm.get('url')!.value,
+      accessToken: this.urlForm.get('accessToken')!.value
+    };
+    this.ds.validateToken(validateTokenRequest).subscribe({
       next: (isValid) => {
         this.isTokenValid = isValid;
         this.isValidating = false;
@@ -47,7 +70,12 @@ export class FetchURLComponent implements OnInit {
   }
 
   saveRepository() {
-    const tokenRequest: TokenRequest = this.urlForm.value;
+    const tokenRequest: TokenRequest = {
+      url: this.urlForm.get('url')!.value,
+      accessToken: this.urlForm.get('accessToken')!.value || "",
+      visibility: this.urlForm.get('visibility')!.value
+    }
+    // tokenRequest.visibility = this.isPrivateRepo ? 'PRIVATE' : 'PUBLIC';
     this.ds.saveRepository(tokenRequest).subscribe({
       next: (response: string) => {
         this.isSuccess = true;
@@ -61,6 +89,4 @@ export class FetchURLComponent implements OnInit {
       }
     })
   }
-
-
 }

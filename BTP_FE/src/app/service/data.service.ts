@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {TokenRequest} from '../TokenRequest';
 import {RepositoryURLDTO} from '../RepositoryURLDTO';
 import {AccessTokenDTO} from '../AccessTokenDTO';
+import {ValidationTokenRequest} from '../ValidationTokenRequest';
 
 const BASE_URL = 'http://localhost:8080/api/';
 
@@ -17,7 +18,7 @@ export class DataService {
   }
 
 
-  validateToken(validateTokenRequest: TokenRequest): Observable<boolean> {
+  validateToken(validateTokenRequest: ValidationTokenRequest): Observable<boolean> {
     return this.http.post<boolean>(BASE_URL + 'validate-token', validateTokenRequest);
   }
 

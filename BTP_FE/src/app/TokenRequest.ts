@@ -1,4 +1,5 @@
-export interface TokenRequest{
+export interface TokenRequest {
   url: string;
   accessToken: string;
+  visibility: 'PUBLIC' | 'PRIVATE';
 }

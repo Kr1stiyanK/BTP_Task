@@ -3,19 +3,32 @@
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th>#</th>
+      <th>ID</th>
       <th>Repository URL</th>
       <th>Platform</th>
+      <th>Visibility</th>
+      <th>Belongs to</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let repository of repositories; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ repository.url }}</td>
-      <td>{{ repository.tokenPlatform }}</td>
+    <!--    <tr *ngFor="let repository of repositories; let i = index">-->
+    <!--      <td>{{ i + 1 }}</td>-->
+    <!--      <td>{{ repository.url }}</td>-->
+    <!--      <td>{{ repository.tokenPlatform }}</td>-->
+    <!--      <td>-->
+    <!--        <button class="btn btn-danger" (click)="deleteRepository(repository.id)">Delete</button>-->
+    <!--      </td>-->
+    <!--    </tr>-->
+    <!--    </tbody>-->
+    <tr *ngFor="let repo of repositories">
+      <td>{{ repo.id }}</td>
+      <td>{{ repo.url }}</td>
+      <td>{{ repo.tokenPlatform }}</td>
+      <td>{{ repo.visibility }}</td>
+      <td>{{ repo.accessTokenIdentifier }}</td>
       <td>
-        <button class="btn btn-danger" (click)="deleteRepository(repository.id)">Delete</button>
+        <button class="btn btn-danger" (click)="deleteRepository(repo.id)">Delete</button>
       </td>
     </tr>
     </tbody>
