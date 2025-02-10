@@ -19,7 +19,7 @@ public class URLTokenService {
     private static String currentPlatform;
 
     private static final String GITHUB_URL = "https://api.github.com/user";
-    private static final String BITBUCKET_URL = "https://api.bitbucket.org/2.0/user";
+    private static final String BITBUCKET_URL = "https://api.bitbucket.org/2.0/repositories";
     private static final String GITLAB_URL = "https://gitlab.com/api/v4/user";
 
     private final URLRepository urlRepository;

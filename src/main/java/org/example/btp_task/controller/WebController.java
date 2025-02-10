@@ -1,6 +1,5 @@
 package org.example.btp_task.controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.example.btp_task.dto.AccessTokenDTO;
 import org.example.btp_task.dto.RepositoryURLDTO;
 import org.example.btp_task.dto.URLTokenRequest;
@@ -30,7 +29,7 @@ public class WebController {
 
 
     @PostMapping("/validate-token")
-    public ResponseEntity<Boolean> validateRepositoryURLandAccessToken(@RequestBody URLTokenRequest urlTokenRequest, HttpSession session) {
+    public ResponseEntity<Boolean> validateRepositoryURLandAccessToken(@RequestBody URLTokenRequest urlTokenRequest) {
         String URLPlatform = tokenService.identifyURLPlatform(urlTokenRequest.getUrl());
         boolean isValid = tokenService.validateTokenAndURL(urlTokenRequest);
         if (isValid) {
@@ -41,7 +40,7 @@ public class WebController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> saveRepositoryAndToken(@RequestBody URLTokenRequest urlTokenRequest, HttpSession session) {
+    public ResponseEntity<String> saveRepositoryAndToken(@RequestBody URLTokenRequest urlTokenRequest) {
         try {
             String platform = URLTokenService.getCurrentPlatform();
             if (platform == null) {
