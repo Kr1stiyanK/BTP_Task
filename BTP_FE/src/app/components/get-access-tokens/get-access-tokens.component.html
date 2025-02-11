@@ -4,7 +4,7 @@
     <table class="table">
       <thead>
       <tr>
-        <th>#</th>
+        <th>Identifier</th>
         <th>Platform</th>
         <th>Repositories</th>
         <th>Actions</th>
@@ -12,11 +12,12 @@
       </thead>
       <tbody>
       <tr *ngFor="let token of accessTokens; let i = index">
-        <td>{{ i + 1 }}</td>
+        <td>{{ token.accessTokenIdentifier }}</td>
         <td>{{ token.platform }}</td>
         <td>{{ getRepositoryURLs(token.repositories) }}</td>
         <td>
-          <button class="btn btn-danger" (click)="deleteAccessTokenById(token.id)">Delete</button>
+          <button class="btn btn-danger" (click)="deleteAccessTokenById(token.id, token.accessTokenIdentifier)">Delete
+          </button>
         </td>
       </tr>
       </tbody>
